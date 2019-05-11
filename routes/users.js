@@ -12,11 +12,12 @@ router.get('/', (req, res) => {
                 client.release()
                 res.send(results.rows)
             })
-            .catch(e => {
+            .catch(err => {
                 client.release()
-                res.status(400).json({ type: "ERROR", err: e.stack })
+                res.status(400).json({ type: "ERROR", error: err.stack })
             })
         })
+        .catch(err => res.status(400).json({ type: "ERROR", error: err.stack }) )
 })
 
 router.post('/:username', async (req, res) => {
